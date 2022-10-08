@@ -1,38 +1,76 @@
-# create-svelte
+# sveltekit-todos-sqlite
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Semplice applicazione ToDo che dimostra come usare l'ORM prisma.io con sqlite e sveltekit
 
-## Creating a project
+## Run dell'applicazione
 
-If you're seeing this, you've probably already done this step. Congrats!
+Per esegurie l'applicazione e sviluppare seguire i seguenti passi:
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+1. git clone del repo
+2. cd sveltekit-todos-sqlite
+3. npm i #per installare le dipendenze
 
 ```bash
-npm run dev
+added 243 packages, and audited 244 packages in 4s
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+33 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
 ```
 
-## Building
+4. npx prisma migrate dev --name initdb  #per inizializzare il DB
 
-To create a production version of your app:
+ ```bash
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+Datasource "db": SQLite database "todoDB.db" at "file:./todoDB.db"
+
+SQLite database todoDB.db created at file:./todoDB.db
+
+Applying migration `20221008200251_initdb`
+
+The following migration(s) have been created and applied from new schema changes:
+
+migrations/
+  └─ 20221008200251_initdb/
+    └─ migration.sql
+
+Your database is now in sync with your schema.
+
+✔ Generated Prisma Client (4.4.0 | library) to ./node_modules/@prisma/client in 59ms
+ ```
+ 5. npm run dev -- --open # per aprire il browser e lanciare l'applicazione
 
 ```bash
-npm run build
+VITE v3.1.6  ready in 601 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+Query TODOS dal DB:  []
+Query data dal DB: {}
+Query TODOS dal DB:  []
+Query data dal DB: {}
+Query TODOS dal DB:  []
+Query data dal DB: {}
+Query TODOS dal DB:  []
+Query data dal DB: {}
+Query TODOS dal DB:  []
+Query data dal DB: {}
 ```
 
-You can preview the production build with `npm run preview`.
+Ora potete interagire con la ToDo list, aggiungere, modificare e rimuovere ToDo.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Per vedere come viene modificato il DB, eseguire
+```bash
+npx prisma studio
+
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+Prisma Studio is up on http://localhost:5555
+```
+
+- Ora prite il browser sulla porta 5555 e vedrete una bella interfaccia di amministrazione del DB.
+- Se fate una modifica dall'applicazione, in prisma studio vedrete le modifiche (dovete fare il refresh).
+- Se fate una modifica da prisma studio, vedrete le modifiche nell'applicazione sveltekit (fate il refresh della pagina)
+- Sperimentate e provate a fare delle modifiche allo schema del DB e eseguite nuovamente il comando `prisma migrate`
