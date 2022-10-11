@@ -4,3 +4,7 @@ node_modules
 /.svelte-kit
 /package
 !.env.example
+prisma/migrations/
+prisma/todoDB.db
+prisma/todoDB.db-journal
+
